@@ -103,17 +103,9 @@ const SlapGame = () => {
 
   const playFunnySounds = () => {
     try {
-      // 1. Play the crisp slap sound immediately
-      const slap = new Audio('https://www.myinstants.com/media/sounds/slap.mp3');
-      slap.volume = 0.8;
-      slap.play().catch(e => console.log("Audio play failed:", e));
-
-      // 2. Play Shibin's custom crying sound a split second later for maximum realism
-      setTimeout(() => {
-        const cryingSound = new Audio('/faaaa.mp3');
-        cryingSound.volume = 1.0;
-        cryingSound.play().catch(e => console.log("Audio play failed:", e));
-      }, 150);
+      const cryingSound = new Audio('/faaaa.mp3');
+      cryingSound.volume = 1.0;
+      cryingSound.play().catch(e => console.log("Audio play failed:", e));
     } catch (e) {
       console.log("Audio error:", e);
     }
