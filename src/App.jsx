@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PartyPopper, Calendar, MapPin, X, ChevronDown, Skull, Frown, TrendingDown, Laugh, AlertTriangle } from 'lucide-react';
 import Button from './components/common/Button';
 import Modal from './components/common/Modal';
+import { malayalamRoasts } from './roasts';
 import './App.css';
 
 const Countdown = ({ targetDate }) => {
@@ -175,21 +176,10 @@ const SlapGame = () => {
 };
 
 const RoastGenerator = () => {
-  const roasts = [
-    "ഷിബിൻ എന്ന് പറയുന്നത് ഒരു വലിയ അക്ഷരത്തെറ്റാണ്.",
-    "അവന്റെ തലമുടിക്ക് സ്വന്തമായി ഒരു ടൈംസോൺ ഉണ്ട്.",
-    "ഷിബിന്റെ കോഡിൽ കാടിനേക്കാൾ കൂടുതൽ ബഗുകൾ ഉണ്ട്.",
-    "സിലിക്ക ജെല്ലിൽ 'തിന്നരുത്' എന്ന് എഴുതിവെക്കാൻ കാരണം ഇവനാണ്.",
-    "തലച്ചോറില്ലെങ്കിലും മനുഷ്യന് ജീവിക്കാം എന്നതിന്റെ തെളിവാണ് ഷിബിൻ.",
-    "ഷിബിൻ ഒരു സ്‌പൈസ് ആയിരുന്നെങ്കിൽ അത് വെറും മൈദ ആയിരിക്കും.",
-    "അവന്റെ ഫാഷൻ സെൻസ് കണ്ടാൽ ആർക്കും കരച്ചിൽ വരും.",
-    "അവൻ വിചാരിച്ചിരിക്കുന്നത് IP address എന്ന് പറഞ്ഞാൽ ഇന്റർനെറ്റ് താമസിക്കുന്ന സ്ഥലമാണെന്നാണ്.",
-    "അന്യഗ്രഹജീവികൾ നമ്മളോട് സംസാരിക്കാത്തതിന് കാരണം ഷിബിനാണ്."
-  ];
-  const [roast, setRoast] = useState("നിർദയമായ ഒരു സത്യം അറിയാൻ ബട്ടൺ അമർത്തുക.");
+  const [roast, setRoast] = useState(malayalamRoasts[0]);
 
   const handleGenerate = () => {
-    const randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
+    const randomRoast = malayalamRoasts[Math.floor(Math.random() * malayalamRoasts.length)];
     setRoast(randomRoast);
   };
 
