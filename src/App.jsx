@@ -415,7 +415,7 @@ const FakeCallButton = () => {
               <>
                 <div className="call-header">
                   <h2 style={{fontFamily: 'Comic Neue', margin: 0, fontWeight: 400}}>Incoming Call</h2>
-                  <h1 style={{fontSize: '3rem', margin: '10px 0'}}>Hair Transplant Clinic (Turkey) 🇹🇷</h1>
+                  <h1 style={{fontSize: '3rem', margin: '10px 0'}}>രണ്ടാമത്തെ ബെസ്റ്റി 🤡</h1>
                   <p>Mobile</p>
                 </div>
                 
@@ -432,15 +432,15 @@ const FakeCallButton = () => {
             
             {callStatus === "declined" && (
               <div className="call-message">
-                <h2>Call Declined</h2>
-                <p>Shibin can't hide from his baldness forever...</p>
+                <h2>കോൾ കട്ട് ചെയ്തു!</h2>
+                <p>ഷിബിന് ഇപ്പോൾ നിന്നെക്കാൾ വലുത് വേറെ ചിലരുണ്ട്...</p>
               </div>
             )}
 
             {callStatus === "accepted" && (
               <div className="call-message">
-                <h2>Call Connected...</h2>
-                <p style={{color: 'red'}}>Error: Shibin's Credit Card Declined. Transaction Failed.</p>
+                <h2>ഷിബിൻ ബിസിയാണ്!</h2>
+                <p style={{color: 'red'}}>ക്ഷമിക്കണം, ഷിബിൻ ഇപ്പോൾ ഒന്നാമത്തെ ബെസ്റ്റിയുടെ കൂടെയാണ്. ദയവായി ശല്യം ചെയ്യാതിരിക്കുക.</p>
               </div>
             )}
           </motion.div>
