@@ -210,10 +210,109 @@ const RoastGenerator = () => {
   );
 };
 
+const CursorTrail = () => {
+  const [trails, setTrails] = useState([]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (Math.random() > 0.85) { // Spawn occasionally
+        const id = Date.now() + Math.random();
+        setTrails(prev => [...prev, { x: e.clientX, y: e.clientY, id }]);
+        setTimeout(() => {
+          setTrails(prev => prev.filter(t => t.id !== id));
+        }, 800);
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div style={{ pointerEvents: 'none', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 9999 }}>
+      <AnimatePresence>
+        {trails.map(t => (
+          <motion.div
+            key={t.id}
+            initial={{ opacity: 1, scale: 1, y: t.y, x: t.x }}
+            animate={{ opacity: 0, scale: 0.2, y: t.y + 50, rotate: 180 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            style={{ position: 'absolute', fontSize: '24px' }}
+          >
+            {['🤡', '💩', '💀', '📉'][Math.floor(Math.random() * 4)]}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const DangerButton = () => {
+  const handleDanger = () => {
+    const fileContent = `SHIBIN'S SECRET SEARCH HISTORY (DO NOT SHARE):
+
+1. How to grow hair fast naturally in 3 days
+2. Why is my code not working?
+3. StackOverflow: how to center a div
+4. Can I use HTML as a backend programming language?
+5. Cheap hair transplant Turkey deals 2026
+6. Why do girls ignore me when I talk about crypto?
+7. How to look younger than 23
+8. What is a 5K run and can I do it on a chair?
+9. How to fake being a senior developer
+10. Is mayonnaise spicy?`;
+
+    const element = document.createElement("a");
+    const file = new Blob([fileContent], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = "shibins_secret_search_history.txt";
+    document.body.appendChild(element);
+    element.click();
+    
+    alert("⚠️ CRITICAL WARNING ⚠️\nDownloading Shibin's secret browser history to your device...");
+  };
+
+  return (
+    <div style={{ margin: '60px 0', textAlign: 'center' }}>
+      <motion.button 
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={handleDanger}
+        style={{
+          background: '#ff0000',
+          color: 'white',
+          fontSize: '2rem',
+          padding: '20px 40px',
+          border: '8px solid black',
+          borderRadius: '15px',
+          fontFamily: 'Bangers',
+          cursor: 'pointer',
+          boxShadow: '10px 10px 0 #000',
+          transform: 'rotate(-2deg)'
+        }}
+      >
+        🛑 DO NOT CLICK THIS 🛑
+      </motion.button>
+    </div>
+  );
+};
+
 function App() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', reason: '', hairline: '10' });
   const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        document.title = "😭 Come back! Shibin is crying!";
+      } else {
+        document.title = "Shibin's Roast Day 🔥";
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
   const submitTexts = ["SUBMIT ROAST", "END HIM", "NO MERCY", "DESTROY HIS EGO", "SEND IT"];
   const [submitText, setSubmitText] = useState(submitTexts[0]);
@@ -257,6 +356,7 @@ function App() {
 
   return (
     <div className="fun-app">
+      <CursorTrail />
       <div className="floating-bg">
         {[...Array(20)].map((_, i) => (
           <div key={i} className="floating-item" style={{
@@ -339,6 +439,7 @@ function App() {
 
         <SlapGame />
         <RoastGenerator />
+        <DangerButton />
 
         <section className="roast-ticker">
           <div className="ticker-content">
