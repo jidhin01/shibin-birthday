@@ -242,16 +242,16 @@ const DangerButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const searchHistory = [
-    "How to grow hair fast naturally in 3 days",
-    "Why is my code not working?",
-    "StackOverflow: how to center a div",
-    "Can I use HTML as a backend programming language?",
-    "Cheap hair transplant Turkey deals 2026",
-    "Why do girls ignore me when I talk about crypto?",
-    "How to look younger than 23",
-    "What is a 5K run and can I do it on a chair?",
-    "How to fake being a senior developer",
-    "Is mayonnaise spicy?"
+    "3 ദിവസം കൊണ്ട് മുടി വളർത്താൻ എളുപ്പവഴികൾ",
+    "എന്റെ കോഡ് എന്താ വർക്ക് ആവാത്തത്?",
+    "StackOverflow: ഒരു div എങ്ങനെ സെന്റർ ആക്കാം?",
+    "HTML വെച്ച് ബാക്കെൻഡ് ചെയ്യാൻ പറ്റുമോ?",
+    "തുർക്കിയിൽ ഏറ്റവും വിലകുറഞ്ഞ ഹെയർ ട്രാൻസ്പ്ലാന്റ് 2026",
+    "ഞാൻ ക്രിപ്റ്റോയെക്കുറിച്ച് സംസാരിക്കുമ്പോൾ പെൺകുട്ടികൾ എന്നെ അവഗണിക്കുന്നത് എന്തുകൊണ്ട്?",
+    "23 വയസ്സിൽ താഴെ പ്രായം തോന്നിക്കാൻ എന്ത് ചെയ്യണം?",
+    "കസേരയിൽ ഇരുന്ന് 5K ഓടാൻ പറ്റുമോ?",
+    "സീനിയർ ഡെവലപ്പർ ആണെന്ന് എങ്ങനെ തള്ളാം?",
+    "മയോണൈസിന് എരിവുണ്ടോ?"
   ];
 
   return (
@@ -273,18 +273,18 @@ const DangerButton = () => {
           transform: 'rotate(-2deg)'
         }}
       >
-        🛑 DO NOT CLICK THIS 🛑
+        🛑 ഇതിൽ ക്ലിക്ക് ചെയ്യരുത് 🛑
       </motion.button>
 
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="⚠️ LEAKED DATA ⚠️"
+        title="⚠️ ചോർന്ന വിവരങ്ങൾ ⚠️"
         size="medium"
       >
         <div style={{ color: 'white', textAlign: 'left', fontFamily: 'Comic Neue' }}>
           <h3 style={{ color: 'var(--accent)', fontFamily: 'Bangers', fontSize: '2rem', marginBottom: '15px' }}>
-            SHIBIN'S RECENT SEARCH HISTORY:
+            ഷിബിന്റെ ഫോണിലെ റീസെന്റ് സെർച്ച് ഹിസ്റ്ററി:
           </h3>
           <ul style={{ listStyleType: 'none', padding: 0, fontSize: '1.2rem', lineHeight: '1.6' }}>
             {searchHistory.map((item, index) => (
@@ -296,7 +296,7 @@ const DangerButton = () => {
           </ul>
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <Button onClick={() => setIsOpen(false)} className="pulse-btn" style={{ background: 'var(--primary)', color: 'white', padding: '10px 20px', width: '100%' }}>
-              I PROMISE NOT TO TELL ANYONE
+              ഞാൻ ആരോടും പറയില്ല എന്ന് സത്യം ചെയ്യുന്നു
             </Button>
           </div>
         </div>
