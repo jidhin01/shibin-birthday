@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PartyPopper, Calendar, MapPin, X, ChevronDown, Skull, Frown, TrendingDown, Laugh, AlertTriangle } from 'lucide-react';
+import { PartyPopper, Calendar, MapPin, X, ChevronDown, Skull, Frown, TrendingDown, Laugh, AlertTriangle, Phone } from 'lucide-react';
 import Button from './components/common/Button';
 import Modal from './components/common/Modal';
 import { malayalamRoasts } from './roasts';
@@ -305,6 +305,151 @@ const DangerButton = () => {
   );
 };
 
+const FakeCodeEditor = () => {
+  const [typedCode, setTypedCode] = useState("");
+  const [isOnFire, setIsOnFire] = useState(false);
+  
+  const funnyString = "I have absolutely no idea what I am doing... Please help... StackOverflow save me... I am just copying and pasting blindly... Why is there a syntax error on line 1?...";
+  
+  const handleKeyDown = (e) => {
+    e.preventDefault();
+    if (isOnFire) return;
+    
+    setTypedCode(prev => {
+      const nextChar = funnyString[prev.length % funnyString.length];
+      const newStr = prev + nextChar;
+      if (newStr.length > 50 && !isOnFire) {
+        setIsOnFire(true);
+      }
+      return newStr;
+    });
+  };
+
+  return (
+    <div className={`fake-code-container ${isOnFire ? 'on-fire' : ''}`}>
+      <h2 style={{color: 'white', fontFamily: 'Bangers'}}>Fix Shibin's Code</h2>
+      <p style={{color: 'var(--primary)'}}>Type anywhere below to fix the bug!</p>
+      
+      <div className="code-editor" tabIndex="0" onKeyDown={handleKeyDown}>
+        <div className="code-header">
+          <span className="dot red"></span><span className="dot yellow"></span><span className="dot green"></span>
+          <span className="file-name">shibin_logic.js</span>
+        </div>
+        <div className="code-body">
+          <pre style={{ margin: 0 }}><code>
+<span style={{color: '#ff7b72'}}>function</span> <span style={{color: '#d2a8ff'}}>makeShibinSmart</span>() {'{\n'}
+{'  '}if (brain === <span style={{color: '#79c0ff'}}>null</span>) {'{\n'}
+{'    '}return <span style={{color: '#a5d6ff'}}>"Error 404"</span>;{'\n'}
+{'  '}{'}\n'}
+{'}'}
+          </code></pre>
+          <div className="typed-overlay">
+            {typedCode}<span className="cursor">|</span>
+          </div>
+        </div>
+        
+        {isOnFire && (
+          <div className="fire-overlay">
+            <div style={{ padding: '20px' }}>
+              🔥 SYSTEM CRITICAL FAILURE 🔥<br/>
+              YOU BROKE IT WORSE THAN HE DID!
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const FakeCallButton = () => {
+  const [isCalling, setIsCalling] = useState(false);
+  const [callStatus, setCallStatus] = useState("incoming"); // incoming, declined, accepted
+  const audioRef = useRef(null);
+
+  const startCall = () => {
+    setIsCalling(true);
+    setCallStatus("incoming");
+    const ringtone = new Audio('/faaaa.mp3');
+    ringtone.loop = true;
+    ringtone.play().catch(e => console.log(e));
+    audioRef.current = ringtone;
+  };
+
+  const endCall = (status) => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    setCallStatus(status);
+    setTimeout(() => {
+      setIsCalling(false);
+    }, 3000);
+  };
+
+  return (
+    <div style={{ margin: '60px 0', textAlign: 'center' }}>
+      <Button 
+        onClick={startCall}
+        className="pulse-btn"
+        style={{
+          background: '#000',
+          color: '#ff0000',
+          border: '4px solid #ff0000',
+          fontSize: '1.5rem',
+          padding: '15px 30px'
+        }}
+      >
+        ⚠️ EMERGENCY: DO NOT CLICK ⚠️
+      </Button>
+
+      <AnimatePresence>
+        {isCalling && (
+          <motion.div 
+            className="fake-call-screen"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: "spring", bounce: 0 }}
+          >
+            {callStatus === "incoming" && (
+              <>
+                <div className="call-header">
+                  <h2 style={{fontFamily: 'Comic Neue', margin: 0, fontWeight: 400}}>Incoming Call</h2>
+                  <h1 style={{fontSize: '3rem', margin: '10px 0'}}>Hair Transplant Clinic (Turkey) 🇹🇷</h1>
+                  <p>Mobile</p>
+                </div>
+                
+                <div className="call-actions">
+                  <div className="call-btn decline" onClick={() => endCall("declined")}>
+                    <X size={40} />
+                  </div>
+                  <div className="call-btn accept" onClick={() => endCall("accepted")}>
+                    <Phone size={40} fill="currentColor" />
+                  </div>
+                </div>
+              </>
+            )}
+            
+            {callStatus === "declined" && (
+              <div className="call-message">
+                <h2>Call Declined</h2>
+                <p>Shibin can't hide from his baldness forever...</p>
+              </div>
+            )}
+
+            {callStatus === "accepted" && (
+              <div className="call-message">
+                <h2>Call Connected...</h2>
+                <p style={{color: 'red'}}>Error: Shibin's Credit Card Declined. Transaction Failed.</p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 function App() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', reason: '', hairline: '10' });
@@ -467,6 +612,8 @@ function App() {
 
         <SlapGame />
         <RoastGenerator />
+        <FakeCodeEditor />
+        <FakeCallButton />
         <DangerButton />
 
         <section className="roast-ticker">
