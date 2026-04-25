@@ -176,17 +176,17 @@ const SlapGame = () => {
 
 const RoastGenerator = () => {
   const roasts = [
-    "Shibin is the human equivalent of a typo.",
-    "His hairline has its own timezone.",
-    "Shibin's code has more bugs than a rainforest.",
-    "He's the reason we have 'Do Not Eat' labels on silica gel.",
-    "Shibin is living proof that people can survive without a brain.",
-    "If Shibin were a spice, he'd be flour.",
-    "Shibin's fashion sense is a cry for help.",
-    "He thinks an IP address is where the internet lives.",
-    "Shibin is the reason aliens won't talk to us."
+    "ഷിബിൻ എന്ന് പറയുന്നത് ഒരു വലിയ അക്ഷരത്തെറ്റാണ്.",
+    "അവന്റെ തലമുടിക്ക് സ്വന്തമായി ഒരു ടൈംസോൺ ഉണ്ട്.",
+    "ഷിബിന്റെ കോഡിൽ കാടിനേക്കാൾ കൂടുതൽ ബഗുകൾ ഉണ്ട്.",
+    "സിലിക്ക ജെല്ലിൽ 'തിന്നരുത്' എന്ന് എഴുതിവെക്കാൻ കാരണം ഇവനാണ്.",
+    "തലച്ചോറില്ലെങ്കിലും മനുഷ്യന് ജീവിക്കാം എന്നതിന്റെ തെളിവാണ് ഷിബിൻ.",
+    "ഷിബിൻ ഒരു സ്‌പൈസ് ആയിരുന്നെങ്കിൽ അത് വെറും മൈദ ആയിരിക്കും.",
+    "അവന്റെ ഫാഷൻ സെൻസ് കണ്ടാൽ ആർക്കും കരച്ചിൽ വരും.",
+    "അവൻ വിചാരിച്ചിരിക്കുന്നത് IP address എന്ന് പറഞ്ഞാൽ ഇന്റർനെറ്റ് താമസിക്കുന്ന സ്ഥലമാണെന്നാണ്.",
+    "അന്യഗ്രഹജീവികൾ നമ്മളോട് സംസാരിക്കാത്തതിന് കാരണം ഷിബിനാണ്."
   ];
-  const [roast, setRoast] = useState("Click the button to reveal a brutal truth.");
+  const [roast, setRoast] = useState("നിർദയമായ ഒരു സത്യം അറിയാൻ ബട്ടൺ അമർത്തുക.");
 
   const handleGenerate = () => {
     const randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
@@ -195,7 +195,7 @@ const RoastGenerator = () => {
 
   return (
     <div className="roast-generator">
-      <h3 style={{fontFamily: 'Bangers', fontSize: '2.5rem', color: 'var(--accent)', textShadow: '2px 2px 0 #000', transform: 'rotate(-1deg)'}}>Random Roast Machine</h3>
+      <h3 style={{fontFamily: 'Bangers', fontSize: '2.5rem', color: 'var(--accent)', textShadow: '2px 2px 0 #000', transform: 'rotate(-1deg)'}}>റാൻഡം റോസ്റ്റ് മെഷീൻ</h3>
       <motion.div 
         key={roast}
         initial={{ scale: 0.8, opacity: 0 }}
@@ -205,7 +205,7 @@ const RoastGenerator = () => {
       >
         "{roast}"
       </motion.div>
-      <Button onClick={handleGenerate} className="pulse-btn" style={{ fontSize: '1.5rem', padding: '15px 30px' }}>GENERATE NEW ROAST</Button>
+      <Button onClick={handleGenerate} className="pulse-btn" style={{ fontSize: '1.5rem', padding: '15px 30px', fontFamily: 'inherit', fontWeight: '900' }}>പുതിയ റോസ്റ്റ്</Button>
     </div>
   );
 };
