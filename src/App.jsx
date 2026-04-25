@@ -390,23 +390,43 @@ function App() {
 
       <main className="content-wrapper">
         <header className="fun-header">
-          <motion.div
-            initial={{ scale: 0, rotate: -720 }}
-            animate={{ scale: 1, rotate: 0 }}
+          <motion.div 
+            drag
+            dragConstraints={{ left: -200, right: 200, top: -100, bottom: 200 }}
+            dragElastic={0.5}
+            whileDrag={{ scale: 1.2, rotate: 180 }}
+            initial={{ scale: 0, rotate: -720 }} 
+            animate={{ scale: 1, rotate: 0 }} 
             transition={{ type: "spring", stiffness: 100, damping: 10 }}
             className="logo-circle"
+            style={{ cursor: 'grab' }}
+            title="Throw me around!"
           >
             <AlertTriangle size={60} color="#000" />
           </motion.div>
-          <motion.h1
-            className="main-title text-gradient"
+          <motion.h1 
+            className="main-title text-gradient glitch-text"
+            data-text="VINTAGE 2003 EDITION"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.6 }}
           >
             VINTAGE 2003 EDITION
           </motion.h1>
-          <p className="birth-year-roast">Born in 2003. Still hasn't matured past 2005.</p>
+          <p className="birth-year-roast" style={{ fontSize: '1.5rem', fontWeight: '900' }}>Born in 2003. Still hasn't matured past 2005.</p>
+
+          <div className="maturity-progress">
+            <div className="progress-label">MATURITY LEVEL:</div>
+            <div className="progress-bar-container">
+              <motion.div 
+                className="progress-bar-fill"
+                initial={{ width: '0%' }}
+                animate={{ width: '12%' }}
+                transition={{ delay: 0.5, duration: 2.5, ease: "easeOut" }}
+              />
+              <span className="progress-text">ERROR 404: MATURITY NOT FOUND</span>
+            </div>
+          </div>
         </header>
 
         <section className="hero-focus">
