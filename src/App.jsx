@@ -31,8 +31,8 @@ const Countdown = ({ targetDate }) => {
   return (
     <div className="modern-countdown">
       {Object.entries(timeLeft).map(([label, value]) => (
-        <motion.div 
-          key={label} 
+        <motion.div
+          key={label}
           className="countdown-block"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -62,7 +62,7 @@ const CustomSelect = ({ value, onChange, options, placeholder }) => {
 
   return (
     <div className="custom-select-container" ref={dropdownRef}>
-      <div 
+      <div
         className={`form-input custom-select-header ${isOpen ? 'open' : ''} ${!value ? 'placeholder' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -71,7 +71,7 @@ const CustomSelect = ({ value, onChange, options, placeholder }) => {
       </div>
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             className="custom-select-dropdown"
             initial={{ opacity: 0, y: -20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -79,7 +79,7 @@ const CustomSelect = ({ value, onChange, options, placeholder }) => {
             transition={{ type: "spring", bounce: 0.5 }}
           >
             {options.map((option) => (
-              <div 
+              <div
                 key={option.value}
                 className={`custom-select-option ${value === option.value ? 'selected' : ''}`}
                 onClick={() => {
@@ -103,9 +103,17 @@ const SlapGame = () => {
 
   const playFunnySounds = () => {
     try {
-      const cryingSound = new Audio('/faaaa.mp3');
-      cryingSound.volume = 1.0;
-      cryingSound.play().catch(e => console.log("Audio play failed:", e));
+      // 1. Play the crisp slap sound immediately
+      // const slap = new Audio('https://www.myinstants.com/media/sounds/slap.mp3');
+      // slap.volume = 0.8;
+      // slap.play().catch(e => console.log("Audio play failed:", e));
+
+      // 2. Play Shibin's custom crying sound a split second later for maximum realism
+      setTimeout(() => {
+        const cryingSound = new Audio('/faaaa.mp3');
+        cryingSound.volume = 1.0;
+        cryingSound.play().catch(e => console.log("Audio play failed:", e));
+      }, 150);
     } catch (e) {
       console.log("Audio error:", e);
     }
@@ -114,7 +122,7 @@ const SlapGame = () => {
   const handleSlap = (e) => {
     setSlaps(prev => prev + 1);
     playFunnySounds();
-    
+
     // Get click coordinates relative to the container
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left - 50; // offset for text centering
@@ -133,19 +141,19 @@ const SlapGame = () => {
 
   return (
     <div className="slap-game-container">
-      <h2 className="section-subtitle" style={{color: '#fff'}}>INTERACTIVE ACTIVITY: SLAP SHIBIN</h2>
-      <p style={{textAlign: 'center', fontSize: '1.2rem', marginBottom: '20px', fontWeight: 900}}>Take your anger out on him. He probably deserves it.</p>
-      
+      <h2 className="section-subtitle" style={{ color: '#fff' }}>INTERACTIVE ACTIVITY: SLAP SHIBIN</h2>
+      <p style={{ textAlign: 'center', fontSize: '1.2rem', marginBottom: '20px', fontWeight: 900 }}>Take your anger out on him. He probably deserves it.</p>
+
       <div className="slap-area" onClick={handleSlap}>
-        <motion.img 
-          src="/shibin.jpg" 
-          alt="Slap me" 
+        <motion.img
+          src="/shibin.jpg"
+          alt="Slap me"
           className="slap-face"
           whileTap={{ scale: 0.8, rotate: (Math.random() - 0.5) * 60 }}
         />
         <AnimatePresence>
           {floatingTexts.map(ft => (
-            <motion.div 
+            <motion.div
               key={ft.id}
               className="slap-text"
               initial={{ opacity: 1, y: ft.y, x: ft.x, scale: 0.5 }}
@@ -158,7 +166,7 @@ const SlapGame = () => {
           ))}
         </AnimatePresence>
       </div>
-      
+
       <div className="slap-score">
         TOTAL SLAPS: {slaps}
       </div>
@@ -187,8 +195,8 @@ const RoastGenerator = () => {
 
   return (
     <div className="roast-generator">
-      <h3 style={{fontFamily: 'Bangers', fontSize: '2.5rem', color: 'var(--accent)', textShadow: '2px 2px 0 #000', transform: 'rotate(-1deg)'}}>റാൻഡം റോസ്റ്റ് മെഷീൻ</h3>
-      <motion.div 
+      <h3 style={{ fontFamily: 'Bangers', fontSize: '2.5rem', color: 'var(--accent)', textShadow: '2px 2px 0 #000', transform: 'rotate(-1deg)' }}>റാൻഡം റോസ്റ്റ് മെഷീൻ</h3>
+      <motion.div
         key={roast}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -232,7 +240,7 @@ function App() {
       alert("Nice try Shibin. You can't RSVP to your own roast! I'm changing your name to 'Loser'.");
       val = "Loser";
     }
-    setFormData({...formData, name: val});
+    setFormData({ ...formData, name: val });
   };
 
   const handleButtonHover = () => {
@@ -251,8 +259,8 @@ function App() {
     <div className="fun-app">
       <div className="floating-bg">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="floating-item" style={{ 
-            left: `${Math.random() * 100}%`, 
+          <div key={i} className="floating-item" style={{
+            left: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 5}s`,
             animationDuration: `${Math.random() * 5 + 3}s`,
             fontSize: `${Math.random() * 40 + 30}px`,
@@ -265,15 +273,15 @@ function App() {
 
       <main className="content-wrapper">
         <header className="fun-header">
-          <motion.div 
-            initial={{ scale: 0, rotate: -720 }} 
-            animate={{ scale: 1, rotate: 0 }} 
+          <motion.div
+            initial={{ scale: 0, rotate: -720 }}
+            animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 10 }}
             className="logo-circle"
           >
             <AlertTriangle size={60} color="#000" />
           </motion.div>
-          <motion.h1 
+          <motion.h1
             className="main-title text-gradient"
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -285,19 +293,19 @@ function App() {
         </header>
 
         <section className="hero-focus">
-          <motion.div 
+          <motion.div
             className="photo-card-container"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.7 }}
           >
             <div className="shibin-photo-frame">
-              <img src="/shibin_new.jpg" alt="Shibin looking lost" className="main-photo" />
+              <img src="/shibin.jpg" alt="Shibin looking lost" className="main-photo" />
               <div className="photo-caption">"I swear I'm a Gen Z, but I have the back pain of a Boomer"</div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="countdown-section"
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -307,7 +315,7 @@ function App() {
             <Countdown targetDate="2026-05-15T19:00:00" />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="action-section"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -339,15 +347,15 @@ function App() {
         </section>
       </main>
 
-      <Modal 
-        isOpen={isRSVPModalOpen} 
+      <Modal
+        isOpen={isRSVPModalOpen}
         onClose={() => setIsRSVPModalOpen(false)}
         title={isSuccess ? "PRAY FOR SHIBIN" : "SIGN HIS DEATH WARRANT"}
         size="small"
       >
         <AnimatePresence mode="wait">
           {isSuccess ? (
-            <motion.div 
+            <motion.div
               key="success"
               className="success-state"
               initial={{ scale: 0, rotate: -180 }}
@@ -362,9 +370,9 @@ function App() {
               <p style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 900 }}>Bring your best insults. He's gonna cry.</p>
             </motion.div>
           ) : (
-            <motion.form 
+            <motion.form
               key="form"
-              className="rsvp-fun-form" 
+              className="rsvp-fun-form"
               onSubmit={handleRSVP}
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -372,27 +380,27 @@ function App() {
             >
               <div className="form-group">
                 <label>Your Fake Name (Hide from him)</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  required 
+                <input
+                  type="text"
+                  className="form-input"
+                  required
                   placeholder="e.g. Batman"
                   value={formData.name}
                   onChange={handleNameChange}
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>How bad is his hairline today? (1-10)</label>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <span style={{ fontSize: '1.5rem' }}>👨</span>
-                  <input 
-                    type="range" 
-                    min="1" max="10" 
-                    className="form-input" 
+                  <input
+                    type="range"
+                    min="1" max="10"
+                    className="form-input"
                     style={{ padding: '0', height: '10px', flex: 1, accentColor: 'var(--primary)' }}
                     value={formData.hairline}
-                    onChange={e => setFormData({...formData, hairline: e.target.value})}
+                    onChange={e => setFormData({ ...formData, hairline: e.target.value })}
                   />
                   <span style={{ fontSize: '1.5rem' }}>👴</span>
                   <span style={{ fontSize: '1.5rem', fontWeight: '900', color: '#000', width: '40px', textAlign: 'right' }}>
@@ -405,15 +413,15 @@ function App() {
                 <label>Why are you even doing this?</label>
                 <CustomSelect
                   value={formData.reason}
-                  onChange={(val) => setFormData({...formData, reason: val})}
+                  onChange={(val) => setFormData({ ...formData, reason: val })}
                   options={reasonOptions}
                   placeholder="Select a lame excuse..."
                 />
               </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full pulse-btn" 
+
+              <Button
+                type="submit"
+                className="w-full pulse-btn"
                 style={{ marginTop: '20px', padding: '15px' }}
                 onMouseEnter={handleButtonHover}
               >
