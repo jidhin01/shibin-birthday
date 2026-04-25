@@ -97,11 +97,123 @@ const CustomSelect = ({ value, onChange, options, placeholder }) => {
   );
 };
 
+const SlapGame = () => {
+  const [slaps, setSlaps] = useState(0);
+  const [floatingTexts, setFloatingTexts] = useState([]);
+
+  const playFunnySounds = () => {
+    try {
+      // 1. Play the crisp slap sound immediately
+      const slap = new Audio('https://www.myinstants.com/media/sounds/slap.mp3');
+      slap.volume = 0.8;
+      slap.play().catch(e => console.log("Audio play failed:", e));
+
+      // 2. Play Shibin's custom crying sound a split second later for maximum realism
+      setTimeout(() => {
+        const cryingSound = new Audio('/faaaa.mp3');
+        cryingSound.volume = 1.0;
+        cryingSound.play().catch(e => console.log("Audio play failed:", e));
+      }, 150);
+    } catch (e) {
+      console.log("Audio error:", e);
+    }
+  };
+
+  const handleSlap = (e) => {
+    setSlaps(prev => prev + 1);
+    playFunnySounds();
+    
+    // Get click coordinates relative to the container
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - 50; // offset for text centering
+    const y = e.clientY - rect.top - 20;
+
+    const phrases = ["OUCH!", "MY HAIRLINE!", "STOP!", "I'LL TELL MOM!", "I'M ONLY 25!", "404 ERROR!", "BUG REPORTED!"];
+    const text = phrases[Math.floor(Math.random() * phrases.length)];
+
+    const id = Date.now();
+    setFloatingTexts(prev => [...prev, { id, x, y, text }]);
+
+    setTimeout(() => {
+      setFloatingTexts(prev => prev.filter(t => t.id !== id));
+    }, 800);
+  };
+
+  return (
+    <div className="slap-game-container">
+      <h2 className="section-subtitle" style={{color: '#fff'}}>INTERACTIVE ACTIVITY: SLAP SHIBIN</h2>
+      <p style={{textAlign: 'center', fontSize: '1.2rem', marginBottom: '20px', fontWeight: 900}}>Take your anger out on him. He probably deserves it.</p>
+      
+      <div className="slap-area" onClick={handleSlap}>
+        <motion.img 
+          src="/shibin.jpg" 
+          alt="Slap me" 
+          className="slap-face"
+          whileTap={{ scale: 0.8, rotate: (Math.random() - 0.5) * 60 }}
+        />
+        <AnimatePresence>
+          {floatingTexts.map(ft => (
+            <motion.div 
+              key={ft.id}
+              className="slap-text"
+              initial={{ opacity: 1, y: ft.y, x: ft.x, scale: 0.5 }}
+              animate={{ opacity: 0, y: ft.y - 150, scale: 1.5, rotate: (Math.random() - 0.5) * 40 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {ft.text}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+      
+      <div className="slap-score">
+        TOTAL SLAPS: {slaps}
+      </div>
+    </div>
+  );
+};
+
+const RoastGenerator = () => {
+  const roasts = [
+    "Shibin is the human equivalent of a typo.",
+    "His hairline has its own timezone.",
+    "Shibin's code has more bugs than a rainforest.",
+    "He's the reason we have 'Do Not Eat' labels on silica gel.",
+    "Shibin is living proof that people can survive without a brain.",
+    "If Shibin were a spice, he'd be flour.",
+    "Shibin's fashion sense is a cry for help.",
+    "He thinks an IP address is where the internet lives.",
+    "Shibin is the reason aliens won't talk to us."
+  ];
+  const [roast, setRoast] = useState("Click the button to reveal a brutal truth.");
+
+  const handleGenerate = () => {
+    const randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
+    setRoast(randomRoast);
+  };
+
+  return (
+    <div className="roast-generator">
+      <h3 style={{fontFamily: 'Bangers', fontSize: '2.5rem', color: 'var(--accent)', textShadow: '2px 2px 0 #000', transform: 'rotate(-1deg)'}}>Random Roast Machine</h3>
+      <motion.div 
+        key={roast}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", bounce: 0.5 }}
+        className="roast-display"
+      >
+        "{roast}"
+      </motion.div>
+      <Button onClick={handleGenerate} className="pulse-btn" style={{ fontSize: '1.5rem', padding: '15px 30px' }}>GENERATE NEW ROAST</Button>
+    </div>
+  );
+};
+
 function App() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', reason: '', hairline: '10' });
   const [isSuccess, setIsSuccess] = useState(false);
-  const [buttonPos, setButtonPos] = useState({ x: 0, y: 0 });
 
   const submitTexts = ["SUBMIT ROAST", "END HIM", "NO MERCY", "DESTROY HIS EGO", "SEND IT"];
   const [submitText, setSubmitText] = useState(submitTexts[0]);
@@ -133,13 +245,6 @@ function App() {
 
   const handleButtonHover = () => {
     setSubmitText(submitTexts[Math.floor(Math.random() * submitTexts.length)]);
-  };
-
-  const handleRunAway = () => {
-    setButtonPos({
-      x: Math.random() * 200 - 100,
-      y: Math.random() * 200 - 100
-    });
   };
 
   const reasonOptions = [
@@ -222,16 +327,6 @@ function App() {
                 I'M READY TO ROAST
                 <Skull size={30} />
               </Button>
-              
-              <motion.div animate={{ x: buttonPos.x, y: buttonPos.y }} transition={{ type: "spring", stiffness: 300 }}>
-                <Button 
-                  onMouseEnter={handleRunAway} 
-                  onClick={handleRunAway}
-                  style={{ background: '#ddd', color: '#888', border: '4px solid #aaa', fontSize: '1rem', padding: '10px 20px', boxShadow: 'none' }}
-                >
-                  Give him a compliment
-                </Button>
-              </motion.div>
             </div>
 
             <div className="fun-details">
@@ -241,6 +336,9 @@ function App() {
             </div>
           </motion.div>
         </section>
+
+        <SlapGame />
+        <RoastGenerator />
 
         <section className="roast-ticker">
           <div className="ticker-content">
