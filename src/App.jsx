@@ -182,8 +182,9 @@ function App() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.6 }}
           >
-            SHIBIN IS GETTING OLD!
+            VINTAGE 2003 EDITION
           </motion.h1>
+          <p className="birth-year-roast">Born in 2003. Still hasn't matured past 2005.</p>
         </header>
 
         <section className="hero-focus">
@@ -194,8 +195,8 @@ function App() {
             transition={{ type: "spring", bounce: 0.7 }}
           >
             <div className="shibin-photo-frame">
-              <img src="/shibin.jpg" alt="Shibin looking lost" className="main-photo" />
-              <div className="photo-caption">"I still use Internet Explorer" - Shibin</div>
+              <img src="/shibin_new.jpg" alt="Shibin looking lost" className="main-photo" />
+              <div className="photo-caption">"I swear I'm a Gen Z, but I have the back pain of a Boomer"</div>
             </div>
           </motion.div>
 

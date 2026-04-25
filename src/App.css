@@ -56,11 +56,25 @@
 }
 
 .main-title {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   font-weight: 900;
+  letter-spacing: -0.05em;
   margin: 0;
   text-transform: uppercase;
   transform: rotate(-2deg);
+}
+
+.birth-year-roast {
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  background: rgba(212, 175, 55, 0.1);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .hero-focus {
