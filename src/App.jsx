@@ -248,36 +248,27 @@ const CursorTrail = () => {
 };
 
 const DangerButton = () => {
-  const handleDanger = () => {
-    const fileContent = `SHIBIN'S SECRET SEARCH HISTORY (DO NOT SHARE):
+  const [isOpen, setIsOpen] = useState(false);
 
-1. How to grow hair fast naturally in 3 days
-2. Why is my code not working?
-3. StackOverflow: how to center a div
-4. Can I use HTML as a backend programming language?
-5. Cheap hair transplant Turkey deals 2026
-6. Why do girls ignore me when I talk about crypto?
-7. How to look younger than 23
-8. What is a 5K run and can I do it on a chair?
-9. How to fake being a senior developer
-10. Is mayonnaise spicy?`;
-
-    const element = document.createElement("a");
-    const file = new Blob([fileContent], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = "shibins_secret_search_history.txt";
-    document.body.appendChild(element);
-    element.click();
-    
-    alert("⚠️ CRITICAL WARNING ⚠️\nDownloading Shibin's secret browser history to your device...");
-  };
+  const searchHistory = [
+    "How to grow hair fast naturally in 3 days",
+    "Why is my code not working?",
+    "StackOverflow: how to center a div",
+    "Can I use HTML as a backend programming language?",
+    "Cheap hair transplant Turkey deals 2026",
+    "Why do girls ignore me when I talk about crypto?",
+    "How to look younger than 23",
+    "What is a 5K run and can I do it on a chair?",
+    "How to fake being a senior developer",
+    "Is mayonnaise spicy?"
+  ];
 
   return (
     <div style={{ margin: '60px 0', textAlign: 'center' }}>
       <motion.button 
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
-        onClick={handleDanger}
+        onClick={() => setIsOpen(true)}
         style={{
           background: '#ff0000',
           color: 'white',
@@ -293,6 +284,32 @@ const DangerButton = () => {
       >
         🛑 DO NOT CLICK THIS 🛑
       </motion.button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="⚠️ LEAKED DATA ⚠️"
+        size="medium"
+      >
+        <div style={{ color: 'white', textAlign: 'left', fontFamily: 'Comic Neue' }}>
+          <h3 style={{ color: 'var(--accent)', fontFamily: 'Bangers', fontSize: '2rem', marginBottom: '15px' }}>
+            SHIBIN'S RECENT SEARCH HISTORY:
+          </h3>
+          <ul style={{ listStyleType: 'none', padding: 0, fontSize: '1.2rem', lineHeight: '1.6' }}>
+            {searchHistory.map((item, index) => (
+              <li key={index} style={{ marginBottom: '10px', background: 'rgba(0,0,0,0.3)', padding: '10px', borderRadius: '8px', border: '2px solid black' }}>
+                <span style={{ color: 'var(--primary)', fontWeight: 'bold', marginRight: '10px' }}>{index + 1}.</span> 
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <Button onClick={() => setIsOpen(false)} className="pulse-btn" style={{ background: 'var(--primary)', color: 'white', padding: '10px 20px', width: '100%' }}>
+              I PROMISE NOT TO TELL ANYONE
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
