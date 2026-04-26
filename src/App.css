@@ -783,7 +783,8 @@
   font-family: 'Bangers';
 }
 .call-message p {
-  font-size: 1.5rem;
+}
+
 /* Captcha Styles */
 .captcha-container {
   padding: 10px;
