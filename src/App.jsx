@@ -450,6 +450,112 @@ const FakeCallButton = () => {
   );
 };
 
+const MaturityCaptcha = () => {
+  const [selected, setSelected] = useState([]);
+  const [status, setStatus] = useState('idle'); // idle, error, success
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const images = [
+    { id: 1, content: '🤡', label: 'Clown' },
+    { id: 2, content: '👶', label: 'Baby' },
+    { id: 3, content: '🐒', label: 'Monkey' },
+    { id: 4, content: '/shibin.jpg', label: 'Shibin', isShibin: true },
+    { id: 5, content: '🍼', label: 'Bottle' },
+    { id: 6, content: '🍭', label: 'Lollipop' },
+    { id: 7, content: '🧸', label: 'Teddy' },
+    { id: 8, content: '🐥', label: 'Chick' },
+    { id: 9, content: '💩', label: 'Poop' },
+  ];
+
+  const toggleSelect = (id) => {
+    if (status === 'error') return;
+    setSelected(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleVerify = () => {
+    const shibinId = images.find(img => img.isShibin).id;
+    if (selected.includes(shibinId)) {
+      setStatus('error');
+      setTimeout(() => {
+        setStatus('idle');
+        setSelected([]);
+      }, 3000);
+    } else if (selected.length > 0) {
+      setStatus('success');
+    }
+  };
+
+  return (
+    <div style={{ margin: '60px 0', textAlign: 'center' }}>
+      <Button 
+        onClick={() => setIsModalOpen(true)}
+        className="pulse-btn"
+        style={{ background: '#2563eb', color: 'white', padding: '15px 30px', fontSize: '1.2rem' }}
+      >
+        🔐 സെക്യൂരിറ്റി ചെക്ക് (Security Check)
+      </Button>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="മനുഷ്യനാണോ എന്ന് ഉറപ്പുവരുത്തുക"
+        size="medium"
+      >
+        <div className="captcha-container">
+          <p className="captcha-task">
+            താഴെ പറയുന്നവയിൽ നിന്നും <strong>'പ്രായപൂർത്തിയായ ഒരാളെ' (Mature Adult)</strong> തിരഞ്ഞെടുക്കുക.
+          </p>
+          
+          <div className="captcha-grid">
+            {images.map(img => (
+              <div 
+                key={img.id} 
+                className={`captcha-item ${selected.includes(img.id) ? 'selected' : ''}`}
+                onClick={() => toggleSelect(img.id)}
+              >
+                {img.isShibin ? (
+                  <img src={img.content} alt="Mature?" className="captcha-img" />
+                ) : (
+                  <span className="captcha-emoji">{img.content}</span>
+                )}
+                {selected.includes(img.id) && <div className="checkmark">✅</div>}
+              </div>
+            ))}
+          </div>
+
+          {status === 'error' && (
+            <motion.div 
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }} 
+              className="captcha-error"
+            >
+              ❌ തെറ്റായ ഉത്തരം! ഇതിൽ പ്രായപൂർത്തിയായവർ ആരുമില്ല. പ്രത്യേകിച്ച് ആ ഫോട്ടോയിലുള്ള ആൾ ഒരു കൊച്ചു കുട്ടിയാണ്!
+            </motion.div>
+          )}
+
+          {status === 'success' && (
+            <div className="captcha-success">
+              ✅ വെരിഫിക്കേഷൻ പൂർത്തിയായി! നിങ്ങൾക്ക് തുടരാം.
+            </div>
+          )}
+
+          <div className="captcha-footer">
+            <Button 
+              onClick={handleVerify}
+              disabled={selected.length === 0 || status === 'success'}
+              style={{ background: '#2563eb', color: 'white', width: '100%' }}
+            >
+              VERIFY
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
 function App() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', reason: '', hairline: '10' });
@@ -612,6 +718,7 @@ function App() {
 
         <SlapGame />
         <RoastGenerator />
+        <MaturityCaptcha />
         <FakeCodeEditor />
         <FakeCallButton />
         <DangerButton />
