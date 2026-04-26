@@ -328,7 +328,7 @@ const FakeCodeEditor = () => {
   return (
     <div className={`fake-code-container ${isOnFire ? 'on-fire' : ''}`}>
       <h2 style={{color: 'white', fontFamily: 'Bangers'}}>Fix Shibin's Code</h2>
-      <p style={{color: 'var(--primary)'}}>Type anywhere below to fix the bug!</p>
+      <p style={{color: 'var(--accent)', textShadow: '2px 2px 0 #000'}}>Type anywhere below to fix the bug!</p>
       
       <div className="code-editor" tabIndex="0" onKeyDown={handleKeyDown}>
         <div className="code-header">
