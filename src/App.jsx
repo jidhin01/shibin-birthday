@@ -556,6 +556,59 @@ const MaturityCaptcha = () => {
   );
 };
 
+const InvitationSection = () => {
+  return (
+    <motion.section 
+      className="invitation-section"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      style={{
+        margin: '60px auto',
+        padding: '40px',
+        background: 'rgba(0, 0, 0, 0.8)',
+        border: '4px solid var(--accent)',
+        borderRadius: '20px',
+        maxWidth: '800px',
+        textAlign: 'center',
+        boxShadow: '15px 15px 0 var(--primary)',
+        color: 'white'
+      }}
+    >
+      <h2 style={{ fontFamily: 'Bangers', fontSize: '3rem', color: 'var(--primary)', marginBottom: '20px', letterSpacing: '2px' }}>
+        🎂 THE MEGA EVENT 🎂
+      </h2>
+      <p style={{ fontSize: '1.5rem', marginBottom: '30px', fontWeight: 'bold' }}>
+        You're officially invited to witness the disaster! Join us for food, fun, and roasting Shibin.
+      </p>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center', marginBottom: '30px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.2rem' }}>
+          <Calendar size={24} color="var(--accent)" />
+          <span>May 24th, 2026 @ 7:00 PM</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.2rem', textAlign: 'left', justifyContent: 'center' }}>
+          <MapPin size={24} color="var(--accent)" style={{ flexShrink: 0 }} />
+          <span>XXWV+R4P, Kozhikode-Trissur Road, Nh junction, Changuvetty, Kerala 676503</span>
+        </div>
+      </div>
+
+      <a 
+        href="https://www.google.com/maps?rlz=1C5GCEM_enIN1159IN1159&sca_esv=525e608177515078&sxsrf=ANbL-n5H30-rjmxDsvO99RNNwKh97BRTng:1779449677856&biw=1680&bih=962&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KQtu5D9es6c7MRqvyxusOCQ3&daddr=XXWV%2BR4P,+Kozhikode-Trissur+Road,Nh+junction,+Changuvetty,+Kerala+676503"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
+        <Button className="pulse-btn" style={{ fontSize: '1.2rem', padding: '15px 30px', display: 'flex', alignItems: 'center', gap: '10px', margin: '0 auto' }}>
+          <MapPin size={20} />
+          GET DIRECTIONS TO THE ROAST
+        </Button>
+      </a>
+    </motion.section>
+  );
+};
+
 function App() {
   const [isRSVPModalOpen, setIsRSVPModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', reason: '', hairline: '10' });
@@ -710,7 +763,7 @@ function App() {
 
             <div className="fun-details">
               <div className="detail-item"><Calendar size={24} color="#000" /> May 24th @ 7PM</div>
-              <div className="detail-item"><MapPin size={24} color="#000" /> The Grand Pavilion</div>
+              <div className="detail-item"><MapPin size={24} color="#000" /> Nh junction, Changuvetty</div>
               <div className="detail-item"><TrendingDown size={24} color="#000" /> His Dignity</div>
             </div>
           </motion.div>
@@ -722,6 +775,7 @@ function App() {
         <FakeCodeEditor />
         <FakeCallButton />
         <DangerButton />
+        <InvitationSection />
 
         <section className="roast-ticker">
           <div className="ticker-content">
