@@ -691,7 +691,7 @@ function App() {
             transition={{ delay: 0.2, type: "spring" }}
           >
             <h2 className="section-subtitle">COUNTDOWN TO HIS MID-LIFE CRISIS:</h2>
-            <Countdown targetDate="2026-05-15T19:00:00" />
+            <Countdown targetDate="2026-05-24T19:00:00" />
           </motion.div>
 
           <motion.div
@@ -709,7 +709,7 @@ function App() {
             </div>
 
             <div className="fun-details">
-              <div className="detail-item"><Calendar size={24} color="#000" /> May 15th @ 7PM</div>
+              <div className="detail-item"><Calendar size={24} color="#000" /> May 24th @ 7PM</div>
               <div className="detail-item"><MapPin size={24} color="#000" /> The Grand Pavilion</div>
               <div className="detail-item"><TrendingDown size={24} color="#000" /> His Dignity</div>
             </div>
